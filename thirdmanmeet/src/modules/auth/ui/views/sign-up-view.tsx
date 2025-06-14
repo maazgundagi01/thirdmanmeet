@@ -198,7 +198,7 @@ export const SignUpView = () => {
                                         <AlertTitle>{error}</AlertTitle>
                                     </Alert>
                                 )}
-                                <Button type="submit" className="w-full bg-sky-600" disabled={pending}>
+                                <Button type="submit" className="w-full" disabled={pending}>
                                     Sign Up
                                 </Button>
                                 <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after::items-center after:border-t">
@@ -217,7 +217,7 @@ export const SignUpView = () => {
                         </form>
                     </Form>
                     
-                    <div className="bg-gradient-to-r from-cyan-600 to-sky-950 relative hidden md:flex flex-col gap-y-4 items-center justify-center">
+                    <div className="bg-radial from-sidebar-accent to-sidebar relative hidden md:flex flex-col gap-y-4 items-center justify-center">
                         <img src="/logo-bright.png" alt="Image" className="h-[120px] w-[120px]"/>
                         <p className="text-2xl font-semibold text-white">
                             ThirdMan AI
