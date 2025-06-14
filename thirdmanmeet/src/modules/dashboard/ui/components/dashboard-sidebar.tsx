@@ -38,7 +38,7 @@ function DashboardSidebar() {
         <SidebarHeader className="text-sidebar-accent-foreground">
             <Link href="/" className="flex items-center gap-2 px-2 pt-2">
                 <Image src="/logo-bright.png" alt="logo" height={44} width={44}></Image>
-                <p className="text-2xl font-semibold">Thirdman Meet</p>
+                <p className="text-2xl font-semibold">Thirdman AI</p>
             </Link>
         </SidebarHeader>
         <div className="py-2 px-4 opacity-20">
