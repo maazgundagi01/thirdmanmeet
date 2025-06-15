@@ -207,11 +207,11 @@ export const SignUpView = () => {
                                     </span>
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
-                                    <Button variant="outline" type="button" className="w-full" disabled={pending} onClick={()=>onSocial("google")}> <FcGoogle/> </Button>
-                                    <Button variant="outline" type="button" className="w-full" disabled={pending} onClick={()=>onSocial("github")}> <FaGithub/> </Button>
+                                    <Button variant="outline" type="button" className="w-full" disabled={pending} onClick={()=>onSocial("google")}> <FcGoogle className="size-5.5"/> </Button>
+                                    <Button variant="outline" type="button" className="w-full" disabled={pending} onClick={()=>onSocial("github")}> <FaGithub className="size-5.5"/> </Button>
                                 </div>
                                 <div className="text-center text-sm">
-                                    Already have an account? <Link href="/sign-in" className="underline underline-offset-4 font-bold"> Sign In! </Link>
+                                    Already have an account? <Link href="/sign-in" className="underline underline-offset-4"> Sign In </Link>
                                 </div>
                             </div>
                         </form>

@@ -49,7 +49,6 @@ function DashboardUserButton() {
                         <ChevronDownIcon className="size-4 shrink-0"/>
                     </div>
                 </DrawerTrigger>
-
                 <DrawerContent>
                     <DrawerHeader>
                         <DrawerTitle>
@@ -60,7 +59,7 @@ function DashboardUserButton() {
                         </DrawerDescription>
                     </DrawerHeader>
                     <DrawerFooter>
-                        <Button variant="outline" onClick={()=>{}}>
+                        <Button variant="outline" onClick={()=>{}} disabled>
                             <CreditCardIcon className="size-4 text-black"/>
                             Billing
                         </Button>
