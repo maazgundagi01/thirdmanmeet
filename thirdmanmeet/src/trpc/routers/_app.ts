@@ -1,18 +1,11 @@
-import { z } from 'zod';
-import { baseProcedure, createTRPCRouter } from '../init';
+import { agentsRouter } from '@/modules/agents/server/procedures';
+import { createTRPCRouter } from '../init';
+
+// Maaz - Feature-specific routers (like agentsRouter) are 
+//    ... composed into the main app router using createTRPCRouter
+
 export const appRouter = createTRPCRouter({
-  hello: baseProcedure
-    .input(
-      z.object({
-        text: z.string(),
-      }),
-    )
-    .query((opts) => {
-      return {
-        greeting: `Hello, ${opts.input.text}!`,
-        message: `Welcome back to Thirdman AI`
-      };
-    }),
+  agents: agentsRouter,
 });
 // export type definition of API
 export type AppRouter = typeof appRouter;
