@@ -1,5 +1,21 @@
 'use client';
 // ^-- to make sure we can mount the Provider from a server component
+
+/** BY MAAZ ---->
+ * This file sets up the tRPC and React Query providers for the client side of the app.
+ *
+ * Used in a Next.js app to provide tRPC and React Query context to the entire React tree.
+ * Wraps your layout or root component in `app/layout.tsx` or a client component like `app/providers.tsx`
+ *
+ * Responsibilities:
+ * - Creates a single `QueryClient` (with memoization in the browser)
+ * - Initializes the `tRPCClient` with HTTP batching
+ * - Provides both `QueryClientProvider` and `TRPCProvider`
+ *
+ * This ensures all tRPC hooks (e.g. `api.agents.getMany.useQuery()`) have access to the query client and tRPC client.
+ */
+
+
 import type { QueryClient } from '@tanstack/react-query';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { createTRPCClient, httpBatchLink } from '@trpc/client';
@@ -7,20 +23,24 @@ import { createTRPCContext } from '@trpc/tanstack-react-query';
 import { useState } from 'react';
 import { makeQueryClient } from './query-client';
 import type { AppRouter } from './routers/_app';
+
+// Maaz - Create tRPC context hooks for the app
 export const { TRPCProvider, useTRPC } = createTRPCContext<AppRouter>();
+
 let browserQueryClient: QueryClient;
+
+
+// Maaz - Returns a memoized QueryClient in the browser, and a new one on the server
 function getQueryClient() {
   if (typeof window === 'undefined') {
-    // Server: always make a new query client
+     // On the server: always return a new instance
     return makeQueryClient();
   }
-  // Browser: make a new query client if we don't already have one
-  // This is very important, so we don't re-make a new client if React
-  // suspends during the initial render. This may not be needed if we
-  // have a suspense boundary BELOW the creation of the query client
+   // On the browser: reuse the same instance to prevent unnecessary re-renders
   if (!browserQueryClient) browserQueryClient = makeQueryClient();
   return browserQueryClient;
 }
+// Determines the base URL for API calls
 function getUrl() {
   const base = (() => {
     if (typeof window !== 'undefined') return '';
@@ -28,21 +48,22 @@ function getUrl() {
   })();
   return `${base}/api/trpc`;
 }
+
+// tRPC + React Query provider wrapper
 export function TRPCReactProvider(
   props: Readonly<{
     children: React.ReactNode;
   }>,
 ) {
-  // NOTE: Avoid useState when initializing the query client if you don't
-  //       have a suspense boundary between this and the code that may
-  //       suspend because React will throw away the client on the initial
-  //       render if it suspends and there is no boundary
+
+
   const queryClient = getQueryClient();
+  // Important: useState ensures trpcClient is preserved across rerenders
   const [trpcClient] = useState(() =>
     createTRPCClient<AppRouter>({
       links: [
         httpBatchLink({
-          // transformer: superjson, <-- if you use a data transformer
+          // Add `transformer: superjson` here if you're using a data transformer
           url: getUrl(),
         }),
       ],
